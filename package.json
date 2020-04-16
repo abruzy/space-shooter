@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ext .js --ignore-path .gitignore . --fix",
+    "lint:dev": "nodemon --exec \"npm run lint\" .",
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production --watch",
+    "start": "webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",
@@ -25,5 +29,8 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "phaser": "^3.22.0"
   }
 }

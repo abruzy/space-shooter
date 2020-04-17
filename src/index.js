@@ -3,6 +3,7 @@ import SceneMain from './scenes/SceneMain';
 import SceneMainMenu from './scenes/SceneMainMenu';
 import SceneGameOver from './scenes/SceneGameOver';
 
+// eslint-disable-next-line no-unused-vars
 let game;
 const scenes = [];
 scenes.push(SceneMainMenu);

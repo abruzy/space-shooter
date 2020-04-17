@@ -54,8 +54,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-<p>Sign In View</p>
-<img src="./img/bookstore.png">
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 

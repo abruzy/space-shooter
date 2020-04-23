@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
-import ScrollingBackground from '../component/scrollingBackground';
-
+import STYLE from '../styles/style';
+import ScrollingBackground from '../component/ScrollingBackground';
+import LocalDatabase from '../component/LocalDatabase';
 
 class SceneMainMenu extends Phaser.Scene {
   constructor() {
@@ -9,57 +10,111 @@ class SceneMainMenu extends Phaser.Scene {
     });
   }
 
+  init() {
+    window.global.width = this.game.config.width;
+    window.global.height = this.game.config.height;
+    window.emitter = new Phaser.Events.EventEmitter();
+    this.dbLocal = new LocalDatabase();
+  }
+
   preload() {
-    this.load.image('sprBg0', 'assets/sprBg0.png');
-    this.load.image('sprBg1', 'assets/sprBg1.png');
+    const assetText = this.make.text({
+      x: window.global.width / 2,
+      y: (window.global.height / 2 - 70),
+      text: '',
+      style: {
+        font: '18px monospace',
+        fill: STYLE.colors.white,
+      },
+    })
+      .setOrigin(0.5);
+    const loadingText = this.make.text({
+      x: assetText.x,
+      y: assetText.y + 32,
+      text: '',
+      style: {
+        font: '18px monospace',
+        fill: STYLE.colors.white,
+      },
+    })
+      .setOrigin(0.5);
+    this.load.on('progress', value => {
+      console.log(`Loading: ${parseInt(value * 100)} %`);
+      loadingText.setText(`${parseInt(value * 100)} %`);
+    });
+    this.load.on('fileprogress', file => {
+      assetText.setText(`Loading asset: ${file.key}`);
+    });
+    this.load.on('complete', () => {
+      assetText.destroy();
+      loadingText.destroy();
+    });
+
     this.load.image('sprBtnPlay', 'assets/sprBtnPlay.png');
     this.load.image('sprBtnPlayHover', 'assets/sprBtnPlayHover.png');
     this.load.image('sprBtnPlayDown', 'assets/sprBtnPlayDown.png');
     this.load.image('sprBtnRestart', 'assets/sprBtnRestart.png');
     this.load.image('sprBtnRestartHover', 'assets/sprBtnRestartHover.png');
     this.load.image('sprBtnRestartDown', 'assets/sprBtnRestartDown.png');
+    this.load.image('sprBg0', 'assets/sprBg0.png');
+    this.load.image('sprBg1', 'assets/sprBg1.png');
 
     this.load.audio('sndBtnOver', 'assets/audio/sndBtnOver.wav');
     this.load.audio('sndBtnDown', 'assets/audio/sndBtnDown.wav');
+
+    this.load.audio('sndExplode0', 'assets/audio/sndExplode0.wav');
+    this.load.audio('sndExplode1', 'assets/audio/sndExplode1.wav');
+    this.load.audio('sndLaser', 'assets/audio/sndLaser.wav');
+    this.load.audio('sndLaser0', ['assets/audio/sndLaser0.mp3', 'assets/audio/sndLaser0.ogg']);
+
+    this.load.audio('bgm', ['assets/audio/bgm_bit.mp3', 'assets/audio/bgm_bit.ogg']);
   }
 
   create() {
+    console.log('From SceneMainMenu');
+    this.add.text(2, this.game.config.height - 2,
+      `Play Control\nMove: [A (Left), D (Right)]\nShoot: [Space]\n${window.global.signature}`)
+      .setOrigin(0, 1);
+
+    const localScore = this.dbLocal.getData('localScore');
+    if (localScore) {
+      this.add.text(window.global.width / 2, 235, localScore, {
+        fontFamily: 'monospace',
+        fontSize: STYLE.fonts.big,
+        fontStyle: 'bold',
+        color: STYLE.colors.white,
+        align: 'center',
+      }).setOrigin(0.5);
+    }
+
+    if (window.global.bgmInstance === undefined) {
+      this.bgm = this.sound.add('bgm', { loop: true, volume: 0.5 });
+      this.bgm.play();
+      window.global.bgmInstance = this.bgm;
+      console.log('Play BGM');
+    }
+
     this.sfx = {
       btnOver: this.sound.add('sndBtnOver'),
       btnDown: this.sound.add('sndBtnDown'),
     };
-
     this.btnPlay = this.add.sprite(
-      this.game.config.width * 0.5,
-      this.game.config.height * 0.5,
+      window.global.width / 2,
+      (window.global.height / 2) + 100,
       'sprBtnPlay',
     );
-
     this.btnPlay.setInteractive();
-    this.btnPlay.on('pointerover', () => {
-      this.btnPlay.setTexture('sprBtnPlayHover');
-      this.sfx.btnOver.play();
-    }, this);
-
-    this.btnPlay.on('pointerout', () => {
-      this.setTexture('sprBtnPlay');
-    });
-
-    this.btnPlay.on('pointerdown', () => {
-      this.btnPlay.setTexture('sprBtnPlayDown');
-      this.sfx.btnDown.play();
-    }, this);
-
+    this.btnPlay.on('pointerover', this.onHover.bind(this));
+    this.btnPlay.on('pointerout', this.onOut.bind(this));
+    this.btnPlay.on('pointerdown', this.onClick.bind(this));
     this.btnPlay.on('pointerup', () => {
-      this.btnPlay.setTexture('sprBtnPlay');
-      this.scene.start('SceneMain');
-    }, this);
-
-    this.title = this.add.text(this.game.config.width * 0.5, 128, 'SPACE SHOOTER', {
+      this.btnPlay.setTexture('sprBtnPlayHover');
+    });
+    this.title = this.add.text(window.global.width * 0.5, 128, 'SPACESHOOTER', {
       fontFamily: 'monospace',
-      fontSize: 48,
+      fontSize: STYLE.fonts.title,
       fontStyle: 'bold',
-      color: '#ffffff',
+      color: STYLE.colors.white,
       align: 'center',
     });
     this.title.setOrigin(0.5);
@@ -71,6 +126,27 @@ class SceneMainMenu extends Phaser.Scene {
       const bg = new ScrollingBackground(this, key, i * 10);
       this.backgrounds.push(bg);
     }
+  }
+
+  onClick() {
+    this.btnPlay.setTexture('sprBtnPlayDown');
+    this.sfx.btnDown.play();
+    this.time.addEvent({
+      delay: 90,
+      callback: () => {
+        this.scene.start('SceneMain');
+      },
+      loop: false,
+    });
+  }
+
+  onOut() {
+    this.btnPlay.setTexture('sprBtnPlay');
+  }
+
+  onHover() {
+    this.btnPlay.setTexture('sprBtnPlayHover');
+    this.sfx.btnOver.play();
   }
 
   update() {

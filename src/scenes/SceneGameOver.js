@@ -1,68 +1,87 @@
 import Phaser from 'phaser';
-import ScrollingBackground from '../component/scrollingBackground';
+import STYLE from '../styles/style';
+import LocalDatabase from '../component/LocalDatabase';
 
 class SceneGameOver extends Phaser.Scene {
   constructor() {
-    super({
-      key: 'SceneGameOver',
-    });
+    super('SceneGameOver');
+  }
+
+  init() {
+    this.dbLocal = new LocalDatabase();
+    this.isHighscore = this.dbLocal.setHighscore();
   }
 
   create() {
-    this.title = this.add.text(this.game.config.width * 0.5, 128, 'GAME OVER', {
+    this.title = this.add.text(window.global.width * 0.5, 64, 'GAME OVER', {
       fontFamily: 'monospace',
-      fontSize: 48,
+      fontSize: STYLE.fonts.title,
       fontStyle: 'bold',
-      color: '#ffffff',
+      color: STYLE.colors.white,
       align: 'center',
     });
     this.title.setOrigin(0.5);
+
+    this.scoreLabel = this.add.text(window.global.width * 0.5, 188, 'SCORE: 99', {
+      fontFamily: 'monospace',
+      fontSize: STYLE.fonts.big,
+      fontStyle: 'bold',
+      color: STYLE.colors.white,
+      align: 'center',
+    });
+    this.scoreLabel.setOrigin(0.5);
+    this.scoreLabel.setText(`SCORE: ${this.getScore()}`);
+
+    this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, 'YOUR HIGHSCORE: 99', {
+      fontFamily: 'monospace',
+      fontSize: STYLE.fonts.normal,
+      fontStyle: 'bold',
+      color: STYLE.colors.white,
+      align: 'center',
+    });
+    this.highscoreLabel.setOrigin(0.5);
+    let highscoreText = `YOUR HIGHSCORE: ${this.dbLocal.getData('localScore')}`;
+    if (this.isHighscore) {
+      highscoreText += ' (NEW)';
+    }
+    this.highscoreLabel.setText(highscoreText);
 
     this.sfx = {
       btnOver: this.sound.add('sndBtnOver'),
       btnDown: this.sound.add('sndBtnDown'),
     };
-
     this.btnRestart = this.add.sprite(
-      this.game.config.width * 0.5,
-      this.game.config.height * 0.5,
+      window.global.width / 2,
+      (window.global.height - 128),
       'sprBtnRestart',
     );
-
     this.btnRestart.setInteractive();
-
-    this.btnRestart.on('pointerover', () => {
-      this.btnRestart.setTexture('sprBtnRestartHover');
-      this.sfx.btnOver.play();
-    }, this);
-
-    this.btnRestart.on('pointerout', () => {
-      this.setTexture('sprBtnRestart');
-    });
-
-    this.btnRestart.on('pointerdown', () => {
-      this.btnRestart.setTexture('sprBtnRestartDown');
-      this.sfx.btnDown.play();
-    }, this);
-
+    this.btnRestart.on('pointerover', this.onHover.bind(this));
+    this.btnRestart.on('pointerout', this.onOut.bind(this));
+    this.btnRestart.on('pointerdown', this.onClick.bind(this));
     this.btnRestart.on('pointerup', () => {
-      this.btnRestart.setTexture('sprBtnRestart');
-      this.scene.start('SceneMain');
-    }, this);
-
-    this.backgrounds = [];
-    for (let i = 0; i < 5; i += 1) {
-      const keys = ['sprBg0', 'sprBg1'];
-      const key = keys[Phaser.Math.Between(0, keys.length - 1)];
-      const bg = new ScrollingBackground(this, key, i * 10);
-      this.backgrounds.push(bg);
-    }
+      this.btnRestart.setTexture('sprBtnRestartHover');
+    });
   }
 
-  update() {
-    for (let i = 0; i < this.backgrounds.length; i += 1) {
-      this.backgrounds[i].update();
-    }
+  getScore() {
+    return window.global.score;
+  }
+
+  onClick() {
+    this.btnRestart.setTexture('sprBtnRestartDown');
+    this.sfx.btnDown.play();
+    console.log('RESTART');
+    this.scene.start('SceneMain');
+  }
+
+  onOut() {
+    this.btnRestart.setTexture('sprBtnRestart');
+  }
+
+  onHover() {
+    this.btnRestart.setTexture('sprBtnRestartHover');
+    this.sfx.btnOver.play();
   }
 }
 

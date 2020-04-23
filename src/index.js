@@ -6,6 +6,7 @@ import SceneGameOver from './scenes/SceneGameOver';
 // eslint-disable-next-line no-unused-vars
 let game;
 const scenes = [];
+const seedRand = Date.now();
 scenes.push(SceneMainMenu);
 scenes.push(SceneMain);
 scenes.push(SceneGameOver);
@@ -13,21 +14,20 @@ scenes.push(SceneGameOver);
 window.onload = () => {
   const config = {
     type: Phaser.AUTO,
+    parent: 'phaser-game',
     width: 480,
     height: 640,
     backgroundColor: 'black',
+    pixelArt: true,
+    seed: [seedRand],
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: {
-          x: 0,
-          y: 0,
-        },
+        gravity: { x: 0, y: 0 },
+        debug: false,
       },
     },
     scene: scenes,
-    pixelArt: true,
-    roundPixels: true,
   };
   game = new Phaser.Game(config);
 };

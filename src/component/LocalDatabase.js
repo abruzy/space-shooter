@@ -9,7 +9,7 @@ class LocalDatabase {
       const currScore = window.global.score;
       if (currScore > this.getData('localScore')) {
         this.saveData('localScore', currScore);
-        console.log("New Highscore!");
+        console.log('New Highscore!');
         newHighscore = true;
       }
     }
@@ -19,9 +19,9 @@ class LocalDatabase {
   saveData(key, value) {
     localStorage.setItem(key, value);
     if (this.getData(key)) {
-      console.log("Data " + key + " saved");
+      console.log(`Data ${key} saved`);
     } else {
-      console.log("Data " + key + " not saved!");
+      console.log(`Data ${key} not saved!`);
     }
   }
 
@@ -29,7 +29,7 @@ class LocalDatabase {
     let data = localStorage.getItem(key);
     if (data === null) {
       data = window.global.score;
-      console.log('Not found: ' + key);
+      console.log(`Not found: ${key}`);
       if (init) {
         this.saveData('localScore', data);
       }
@@ -41,9 +41,9 @@ class LocalDatabase {
     const data = this.getData(key);
     if (data) {
       localStorage.removeItem(key);
-      console.log("Data ' + key + ' deleted!");
+      console.log(`Data ${key} deleted!`);
     } else {
-      console.log("Data ' + key + ' not deleted!");
+      console.log(`Data ${key} not deleted!`);
     }
   }
 }

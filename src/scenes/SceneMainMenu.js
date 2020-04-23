@@ -39,7 +39,7 @@ class SceneMainMenu extends Phaser.Scene {
     })
       .setOrigin(0.5);
     this.load.on('progress', value => {
-      console.log(`Loading: ${parseInt(value * 100)} %`);
+      // eslint-disable-next-line radix
       loadingText.setText(`${parseInt(value * 100)} %`);
     });
     this.load.on('fileprogress', file => {
@@ -71,7 +71,6 @@ class SceneMainMenu extends Phaser.Scene {
   }
 
   create() {
-    console.log('From SceneMainMenu');
     this.add.text(2, this.game.config.height - 2,
       `Play Control\nMove: [A (Left), D (Right)]\nShoot: [Space]\n${window.global.signature}`)
       .setOrigin(0, 1);
@@ -91,7 +90,6 @@ class SceneMainMenu extends Phaser.Scene {
       this.bgm = this.sound.add('bgm', { loop: true, volume: 0.5 });
       this.bgm.play();
       window.global.bgmInstance = this.bgm;
-      console.log('Play BGM');
     }
 
     this.sfx = {

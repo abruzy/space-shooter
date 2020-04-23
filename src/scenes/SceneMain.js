@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import Phaser from 'phaser';
 import STYLE from '../styles/style';
 import Player from '../component/Player';
@@ -14,7 +15,6 @@ class SceneMain extends Phaser.Scene {
   }
 
   preload() {
-    // Load images
     this.load.spritesheet('rplrocket', 'assets/rplrocket.png', {
       frameWidth: 35,
       frameHeight: 56,
@@ -56,8 +56,6 @@ class SceneMain extends Phaser.Scene {
   }
 
   create() {
-    console.log('From SceneMain');
-
     this.anims.create({
       key: 'rplrocket',
       frames: this.anims.generateFrameNumbers('rplrocket'),
@@ -209,7 +207,6 @@ class SceneMain extends Phaser.Scene {
     const threshold = (this.getEnemiesByPosX(380).length >= 3);
     if (threshold) {
       randomPosX = Phaser.Math.RND.between(10, window.global.height * 0.5);
-      console.log(`Recallibrate enemy posX to: ${randomPosX}`);
     }
     if (Phaser.Math.RND.between(0, 10) >= 3) {
       enemy = new GunShip(
@@ -238,7 +235,6 @@ class SceneMain extends Phaser.Scene {
       enemy.body.setImmovable();
     }
     if (enemy !== null) {
-      console.log(`Random pos x: ${randomPosX}, enemyType: ${enemy.getData('type')}`);
       const isChoosen = this.isEnemyType(enemy, 'ChaserShip');
       const scaleRand = isChoosen ? Phaser.Math.RND.between(10, 20) * 0.1 : 1;
       enemy.setScale(scaleRand);
@@ -249,7 +245,6 @@ class SceneMain extends Phaser.Scene {
   getEnemiesByPosX(posX) {
     const pickedEnemies = [];
     this.enemies.children.iterate(enemy => {
-      console.log(`iterate enemy: ${enemy.x}`);
       if (enemy.x > posX) {
         pickedEnemies.push(enemy);
       }
@@ -270,7 +265,7 @@ class SceneMain extends Phaser.Scene {
 
   isEnemyType(enemy, type) {
     let isType = false;
-    if (enemy.getData('type') == type) {
+    if (enemy.getData('type') === type) {
       isType = true;
     }
     return isType;

@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import Phaser from 'phaser';
 import Enemy from './Enemy';
 

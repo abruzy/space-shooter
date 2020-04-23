@@ -64,6 +64,7 @@ class SceneGameOver extends Phaser.Scene {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getScore() {
     return window.global.score;
   }
@@ -71,7 +72,6 @@ class SceneGameOver extends Phaser.Scene {
   onClick() {
     this.btnRestart.setTexture('sprBtnRestartDown');
     this.sfx.btnDown.play();
-    console.log('RESTART');
     this.scene.start('SceneMain');
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 class LocalDatabase {
   constructor() {
     this.getData('localScore', true);

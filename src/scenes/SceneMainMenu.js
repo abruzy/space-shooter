@@ -36,7 +36,6 @@ class SceneMainMenu extends Phaser.Scene {
     );
 
     this.btnPlay.setInteractive();
-
     this.btnPlay.on('pointerover', () => {
       this.btnPlay.setTexture('sprBtnPlayHover');
       this.sfx.btnOver.play();

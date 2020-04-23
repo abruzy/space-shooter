@@ -31,3 +31,9 @@ window.onload = () => {
   };
   game = new Phaser.Game(config);
 };
+
+window.global = {
+  signature: 'Made with Love by Abubakar Diallo',
+  score: 0,
+  emitter: null,
+};

@@ -15,7 +15,7 @@ module.exports = {
   devtool: false,
   performance: {
     maxEntrypointSize: 900000,
-    maxAssetSize: 900000
+    maxAssetSize: 900000,
   },
   optimization: {
     minimizer: [

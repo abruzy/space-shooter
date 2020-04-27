@@ -4,6 +4,8 @@
   "description": "A Phaser 3 Project Template",
   "main": "src/index.js",
   "scripts": {
+    "lint": "eslint --ext .js --ignore-path .gitignore . --fix",
+    "lint:dev": "nodemon --exec \"npm run lint\" .",
     "build": "webpack --config webpack/prod.js ",
     "start": "webpack-dev-server --config webpack/base.js --open"
   },

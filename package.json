@@ -6,8 +6,9 @@
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore . --fix",
     "lint:dev": "nodemon --exec \"npm run lint\" .",
-    "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "build": "NODE_ENV=production webpack --config webpack/prod.js ",
+    "start": "webpack-dev-server --config webpack/base.js --open",
+    "heroku-prebuild": "npm install --production=false"
   },
   "repository": {
     "type": "git",

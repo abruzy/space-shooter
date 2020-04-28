@@ -39,12 +39,14 @@
 
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
+- [Live Demo](#live-demo)
   - [Built With](#built-with)
 - [Design Process](#design-process)
 - [Choosing the Building Blocks](#choosing-the-building-blocks)
 - [Getting Started](#getting-started)
   - [Installation](#installation)
 - [Usage](#usage)
+- [How to Play the Game](#how-to-play-the-game)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
@@ -61,6 +63,11 @@
 This is the basic start of a Space Shooter Game built with Phaser 3.
 
 The project had a deadline of five days total. Two of those days were allocated to designing, preparing and learning, while the final three days were allocated to building the project.
+
+## Live Demo
+
+Here is the link to the game [space-shooter](https://5ea84535b31d54094a3d809f--vigorous-noyce-d40122.netlify.app/)
+
 ### Built With
 This progam was made using this technologies
 * [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Language used.
@@ -115,6 +122,17 @@ NB: This will open a new tab on your browser where you will see the game.
 ```
 npm start
 ```
+
+## How to Play the Game
+
+- There are two control for moving which are:
+  * Key A for moving to the left and
+  * Key D for moving to the right
+- We have three different types of enemies in this game
+  * The CarrierShip enemy which has a green color, to destory this type of enemy, you need to three of your laser to hit it before it can be destroy
+  * The second type of enemy is the ChaserChip enemy, which chase the player when it closer to the player and you need two laser to hit this type of enemy before it can be destroy
+  * The last type of enemy only need one laser to hit before it can be destroy
+- For each type of enemy, there are different points for them, like for the enemy type that need three laser to hit it before it can be destroy, you will have 3 point for destroying such enemy
 
 <!-- ROADMAP -->
 ## Roadmap

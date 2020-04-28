@@ -13,7 +13,7 @@ module.exports = {
       test: [/\.vert$/, /\.frag$/],
       use: 'raw-loader',
     },
-  ],
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({

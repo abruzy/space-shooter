@@ -7,8 +7,8 @@
     "lint": "eslint --ext .js --ignore-path .gitignore . --fix",
     "lint:dev": "nodemon --exec \"npm run lint\" .",
     "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "build": "webpack",
+    "start": "npm run build && webpack-dev-server --open"
   },
   "repository": {
     "type": "git",

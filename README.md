@@ -1,5 +1,3 @@
-# space-shooter
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -39,20 +37,19 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-- [space-shooter](#space-shooter)
-  - [Table of Contents](#table-of-contents)
-  - [About The Project](#about-the-project)
-    - [Built With](#built-with)
-  - [Design Process](#design-process)
-  - [Choosing the Building Blocks](#choosing-the-building-blocks)
-  - [Getting Started](#getting-started)
-    - [Installation](#installation)
-  - [Usage](#usage)
-  - [Roadmap](#roadmap)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Contact](#contact)
-  - [Acknowledgements](#acknowledgements)
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+- [Design Process](#design-process)
+- [Choosing the Building Blocks](#choosing-the-building-blocks)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
 
 

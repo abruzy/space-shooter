@@ -66,7 +66,7 @@ The project had a deadline of five days total. Two of those days were allocated 
 
 ## Live Demo
 
-Here is the link to the game [space-shooter](https://5ea84535b31d54094a3d809f--vigorous-noyce-d40122.netlify.app/)
+Here is the link to the game [space-shooter](https://spaceshooter-game.netlify.app/)
 
 ### Built With
 This progam was made using this technologies

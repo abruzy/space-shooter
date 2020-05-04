@@ -22,29 +22,40 @@ class SceneGameOver extends Phaser.Scene {
     });
     this.title.setOrigin(0.5);
 
-    this.scoreLabel = this.add.text(window.global.width * 0.5, 188, 'SCORE: 99', {
+    this.leaderboard = this.add.text(window.global.width * 0.5, 130, 'Leader Board', {
       fontFamily: 'monospace',
       fontSize: STYLE.fonts.big,
       fontStyle: 'bold',
-      color: STYLE.colors.white,
+      color: STYLE.colors.gold,
       align: 'center',
     });
-    this.scoreLabel.setOrigin(0.5);
-    this.scoreLabel.setText(`SCORE: ${this.getScore()}`);
+    this.leaderboard.setOrigin(0.5);
 
-    this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, 'YOUR HIGHSCORE: 99', {
-      fontFamily: 'monospace',
-      fontSize: STYLE.fonts.normal,
-      fontStyle: 'bold',
-      color: STYLE.colors.white,
-      align: 'center',
-    });
-    this.highscoreLabel.setOrigin(0.5);
-    let highscoreText = `YOUR HIGHSCORE: ${this.dbLocal.getData('localScore')}`;
-    if (this.isHighscore) {
-      highscoreText += ' (NEW)';
-    }
-    this.highscoreLabel.setText(highscoreText);
+    this.add.text(150, 200, 'RANK  SCORE   NAME');
+
+    // this.scoreLabel = this.add.text(window.global.width * 0.5, 188, 'SCORE: 99', {
+    //   fontFamily: 'monospace',
+    //   fontSize: STYLE.fonts.big,
+    //   fontStyle: 'bold',
+    //   color: STYLE.colors.white,
+    //   align: 'center',
+    // });
+    // this.scoreLabel.setOrigin(0.5);
+    // this.scoreLabel.setText(`SCORE: ${this.getScore()}`);
+
+    // this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, 'YOUR HIGHSCORE: 99', {
+    //   fontFamily: 'monospace',
+    //   fontSize: STYLE.fonts.normal,
+    //   fontStyle: 'bold',
+    //   color: STYLE.colors.white,
+    //   align: 'center',
+    // });
+    // this.highscoreLabel.setOrigin(0.5);
+    // let highscoreText = `YOUR HIGHSCORE: ${this.dbLocal.getData('localScore')}`;
+    // if (this.isHighscore) {
+    //   highscoreText += ' (NEW)';
+    // }
+    // this.highscoreLabel.setText(highscoreText);
 
     this.sfx = {
       btnOver: this.sound.add('sndBtnOver'),

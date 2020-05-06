@@ -1,20 +1,46 @@
 import Phaser from 'phaser';
+import axios from 'axios';
 import STYLE from '../styles/style';
 import ScrollingBackground from '../component/ScrollingBackground';
-import LocalDatabase from '../component/LocalDatabase';
+// import LocalDatabase from '../component/LocalDatabase';
 
 class SceneMainMenu extends Phaser.Scene {
   constructor() {
     super({
       key: 'SceneMainMenu',
     });
+    this.user = 'anon';
+    this.score = 0;
   }
 
-  init() {
+  init(data) {
     window.global.width = this.game.config.width;
     window.global.height = this.game.config.height;
     window.emitter = new Phaser.Events.EventEmitter();
-    this.dbLocal = new LocalDatabase();
+    this.user = data.user;
+    this.score = data.score || 0;
+    // this.dbLocal = new LocalDatabase();
+  }
+
+  postGameInfo() {
+    const configHeader = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = {
+      name: this.user,
+      score: this.score,
+    };
+
+    axios.post(
+      'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/e2DIvMqGk9vJA1MU7QhY/scores',
+      body,
+      configHeader,
+    )
+      .then((res) => res)
+      .catch((err) => new Error(err));
   }
 
   preload() {
@@ -120,14 +146,42 @@ class SceneMainMenu extends Phaser.Scene {
     this.title.setOrigin(0.5);
 
 
-    this.inputField = this.add.rexInputText(240, 200, 200, 25, {
+    // this.inputField = this.add.rexInputText(240, 200, 200, 25, {
+    //   type: 'text',
+    //   placeholder: 'Enter your Name',
+    //   fontSize: STYLE.fonts.small,
+    //   color: STYLE.colors.white,
+    //   borderBottom: `3px solid ${STYLE.colors.gold}`,
+    // });
+    // this.inputField.setOrigin(0.5);
+
+    const printText = this.add.text(240, 240, '', {
+      fontSize: '12px',
+      fixedWidth: 100,
+      fixedHeight: 100,
+    }).setOrigin(0.5);
+    const inputText = this.add.rexInputText(240, 260, 200, 30, {
       type: 'text',
-      placeholder: 'Enter your Name',
+      placeholder: 'Enter player name',
       fontSize: STYLE.fonts.small,
-      color: STYLE.colors.white,
       borderBottom: `3px solid ${STYLE.colors.gold}`,
+    })
+      .setOrigin(0.5)
+      .on('textchange', () => {
+        printText.text = inputText.text;
+      });
+
+    printText.text = inputText.text;
+
+    this.submitButton = this.add.text(240, 300, 'Submit Name').setInteractive().setOrigin(0.5);
+    this.submitButton.on('pointerdown', () => {
+      if (printText.text.length > 0) {
+        this.user = printText.text;
+        const data = { user: this.user };
+        data.push('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/e2DIvMqGk9vJA1MU7QhY/scores');
+        this.submitButton.destroy();
+      }
     });
-    this.inputField.setOrigin(0.5);
 
     this.backgrounds = [];
     for (let i = 0; i < 5; i += 1) {

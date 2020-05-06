@@ -30,7 +30,6 @@ class LocalDatabase {
     let data = localStorage.getItem(key);
     if (data === null) {
       data = window.global.score;
-      console.log(`Not found: ${key}`);
       if (init) {
         this.saveData('localScore', data);
       }

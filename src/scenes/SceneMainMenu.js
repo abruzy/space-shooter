@@ -18,6 +18,8 @@ class SceneMainMenu extends Phaser.Scene {
   }
 
   preload() {
+    this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
+
     const assetText = this.make.text({
       x: window.global.width / 2,
       y: (window.global.height / 2 - 70),
@@ -72,19 +74,19 @@ class SceneMainMenu extends Phaser.Scene {
 
   create() {
     this.add.text(2, this.game.config.height - 2,
-      `Play Control\nMove: [A (Left), D (Right)]\nShoot: [Space]\n${window.global.signature}`)
+      `Play Control\nMove: [A (Left), D (Right), W (Up), S (Down)]\nShoot: [Space]\n${window.global.signature}`)
       .setOrigin(0, 1);
 
-    const localScore = this.dbLocal.getData('localScore');
-    if (localScore) {
-      this.add.text(window.global.width / 2, 235, localScore, {
-        fontFamily: 'monospace',
-        fontSize: STYLE.fonts.big,
-        fontStyle: 'bold',
-        color: STYLE.colors.white,
-        align: 'center',
-      }).setOrigin(0.5);
-    }
+    // const localScore = this.dbLocal.getData('localScore');
+    // if (localScore) {
+    //   this.add.text(window.global.width / 2, 235, localScore, {
+    //     fontFamily: 'monospace',
+    //     fontSize: STYLE.fonts.big,
+    //     fontStyle: 'bold',
+    //     color: STYLE.colors.white,
+    //     align: 'center',
+    //   }).setOrigin(0.5);
+    // }
 
     if (window.global.bgmInstance === undefined) {
       this.bgm = this.sound.add('bgm', { loop: true, volume: 0.5 });
@@ -116,6 +118,16 @@ class SceneMainMenu extends Phaser.Scene {
       align: 'center',
     });
     this.title.setOrigin(0.5);
+
+
+    this.inputField = this.add.rexInputText(240, 200, 200, 25, {
+      type: 'text',
+      placeholder: 'Enter your Name',
+      fontSize: STYLE.fonts.small,
+      color: STYLE.colors.white,
+      borderBottom: `3px solid ${STYLE.colors.gold}`,
+    });
+    this.inputField.setOrigin(0.5);
 
     this.backgrounds = [];
     for (let i = 0; i < 5; i += 1) {

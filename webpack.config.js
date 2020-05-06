@@ -9,10 +9,21 @@ module.exports = {
     filename: 'project.bundle.js',
   },
   module: {
-    rules: [{
-      test: [/\.vert$/, /\.frag$/],
-      use: 'raw-loader',
-    }],
+    rules: [
+      // { test: /\.tsx?$/, loader: 'ts-loader' },
+      {
+        test: /\.m?jsx?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: [],
+          },
+        },
+      },
+      // { test: /\.html$/, loader: 'html-loader' },
+      // { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({

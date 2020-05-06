@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore . --fix",
     "lint:dev": "nodemon --exec \"npm run lint\" .",
-    "build": "webpack",
-    "start": "npm run build && webpack-dev-server --open"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/abruzy/space-shooter#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
@@ -31,6 +34,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "phaser": "^3.23.0"
+    "phaser": "^3.23.0",
+    "phaser3-rex-plugins": "^1.1.14"
   }
 }

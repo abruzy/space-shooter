@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import InputTextPlugin from 'phaser3-rex-plugins/plugins/inputtext-plugin';
 import SceneMain from './scenes/SceneMain';
 import SceneMainMenu from './scenes/SceneMainMenu';
 import SceneGameOver from './scenes/SceneGameOver';
@@ -19,7 +20,17 @@ window.onload = () => {
     height: 640,
     backgroundColor: 'black',
     pixelArt: true,
+    dom: {
+      createContainer: true,
+    },
     seed: [seedRand],
+    plugins: {
+      global: [{
+        key: 'rexInputTextPlugin',
+        plugin: InputTextPlugin,
+        start: true,
+      }],
+    },
     physics: {
       default: 'arcade',
       arcade: {

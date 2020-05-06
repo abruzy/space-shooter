@@ -301,6 +301,11 @@ class SceneMain extends Phaser.Scene {
       } else if (this.keyD.isDown || this.cursors.right.isDown) {
         this.player.moveRight();
       }
+      if (this.keyW.isDown || this.cursors.up.isDown) {
+        this.player.moveUp();
+      } else if (this.keyS.isDown || this.cursors.down.isDown) {
+        this.player.moveDown();
+      }
       if (this.keySpace.isDown && !this.player.isDead()) {
         this.player.setData('isShooting', true);
       } else {

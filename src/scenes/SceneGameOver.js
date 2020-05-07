@@ -1,15 +1,17 @@
 import Phaser from 'phaser';
 import STYLE from '../styles/style';
-import LocalDatabase from '../component/LocalDatabase';
+// import LocalDatabase from '../component/LocalDatabase';
 
 class SceneGameOver extends Phaser.Scene {
   constructor() {
     super('SceneGameOver');
   }
 
-  init() {
-    this.dbLocal = new LocalDatabase();
-    this.isHighscore = this.dbLocal.setHighscore();
+  init(data) {
+    this.user = data.user;
+    this.score = data.score || 0;
+    // this.dbLocal = new LocalDatabase();
+    // this.isHighscore = this.dbLocal.setHighscore();
   }
 
   create() {

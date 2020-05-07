@@ -1,15 +1,14 @@
 import Phaser from 'phaser';
-import axios from 'axios';
 import STYLE from '../styles/style';
 import ScrollingBackground from '../component/ScrollingBackground';
-// import LocalDatabase from '../component/LocalDatabase';
+import saveData from '../component/Leaderboard';
 
 class SceneMainMenu extends Phaser.Scene {
   constructor() {
     super({
       key: 'SceneMainMenu',
     });
-    this.user = 'anon';
+    this.user = 'anonymous';
     this.score = 0;
   }
 
@@ -20,27 +19,6 @@ class SceneMainMenu extends Phaser.Scene {
     this.user = data.user;
     this.score = data.score || 0;
     // this.dbLocal = new LocalDatabase();
-  }
-
-  postGameInfo() {
-    const configHeader = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const body = {
-      name: this.user,
-      score: this.score,
-    };
-
-    axios.post(
-      'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/e2DIvMqGk9vJA1MU7QhY/scores',
-      body,
-      configHeader,
-    )
-      .then((res) => res)
-      .catch((err) => new Error(err));
   }
 
   preload() {
@@ -177,8 +155,6 @@ class SceneMainMenu extends Phaser.Scene {
     this.submitButton.on('pointerdown', () => {
       if (printText.text.length > 0) {
         this.user = printText.text;
-        const data = { user: this.user };
-        data.push('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/e2DIvMqGk9vJA1MU7QhY/scores');
         this.submitButton.destroy();
       }
     });

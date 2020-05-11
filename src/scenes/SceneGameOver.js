@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import STYLE from '../styles/style';
+import getData from '../component/Leaderboard';
 // import LocalDatabase from '../component/LocalDatabase';
 
 class SceneGameOver extends Phaser.Scene {

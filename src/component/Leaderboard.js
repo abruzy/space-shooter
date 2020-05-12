@@ -13,7 +13,7 @@ const saveData = (user = 'Anonymous', score = 0) => {
 const getData = () => {
   const { url, headers } = api.config;
   axios.get(url, headers)
-    .then((response) => console.log(response))
+    .then((response) => response)
     .catch((err) => new Error(err));
 };
 

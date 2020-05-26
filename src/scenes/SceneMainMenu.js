@@ -1,28 +1,24 @@
 import Phaser from 'phaser';
 import STYLE from '../styles/style';
 import ScrollingBackground from '../component/ScrollingBackground';
-import saveData from '../component/Leaderboard';
+import LocalDatabase from '../component/LocalDatabase';
 
 class SceneMainMenu extends Phaser.Scene {
   constructor() {
     super({
       key: 'SceneMainMenu',
     });
-    this.user = 'anonymous';
-    this.score = 0;
   }
 
-  init(data) {
+  init(){
     window.global.width = this.game.config.width;
     window.global.height = this.game.config.height;
     window.emitter = new Phaser.Events.EventEmitter();
-    this.user = data.user;
-    this.score = data.score || 0;
-    // this.dbLocal = new LocalDatabase();
-  }
-
+    this.dbLocal = new LocalDatabase();
+  };
+  
   preload() {
-    this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
+    // this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
 
     const assetText = this.make.text({
       x: window.global.width / 2,
@@ -81,16 +77,16 @@ class SceneMainMenu extends Phaser.Scene {
       `Play Control\nMove: [A (Left), D (Right), W (Up), S (Down)]\nShoot: [Space]\n${window.global.signature}`)
       .setOrigin(0, 1);
 
-    // const localScore = this.dbLocal.getData('localScore');
-    // if (localScore) {
-    //   this.add.text(window.global.width / 2, 235, localScore, {
-    //     fontFamily: 'monospace',
-    //     fontSize: STYLE.fonts.big,
-    //     fontStyle: 'bold',
-    //     color: STYLE.colors.white,
-    //     align: 'center',
-    //   }).setOrigin(0.5);
-    // }
+    const localScore = this.dbLocal.getData('localScore');
+    if (localScore) {
+      this.add.text(window.global.width / 2, 235, localScore, {
+        fontFamily: 'monospace',
+        fontSize: STYLE.fonts.big,
+        fontStyle: 'bold',
+        color: STYLE.colors.white,
+        align: 'center',
+      }).setOrigin(0.5);
+    }
 
     if (window.global.bgmInstance === undefined) {
       this.bgm = this.sound.add('bgm', { loop: true, volume: 0.5 });
@@ -133,31 +129,32 @@ class SceneMainMenu extends Phaser.Scene {
     // });
     // this.inputField.setOrigin(0.5);
 
-    const printText = this.add.text(240, 240, '', {
-      fontSize: '12px',
-      fixedWidth: 100,
-      fixedHeight: 100,
-    }).setOrigin(0.5);
-    const inputText = this.add.rexInputText(240, 260, 200, 30, {
-      type: 'text',
-      placeholder: 'Enter player name',
-      fontSize: STYLE.fonts.small,
-      borderBottom: `3px solid ${STYLE.colors.gold}`,
-    })
-      .setOrigin(0.5)
-      .on('textchange', () => {
-        printText.text = inputText.text;
-      });
+    // const printText = this.add.text(240, 240, '', {
+    //   fontSize: '12px',
+    //   fixedWidth: 100,
+    //   fixedHeight: 100,
+    // }).setOrigin(0.5);
+    // const inputText = this.add.rexInputText(240, 260, 200, 30, {
+    //   type: 'text',
+    //   placeholder: 'Enter player name',
+    //   fontSize: STYLE.fonts.small,
+    //   borderBottom: `3px solid ${STYLE.colors.gold}`,
+    // })
+    //   .setOrigin(0.5)
+    //   .on('textchange', () => {
+    //     printText.text = inputText.text;
+    //   });
 
-    printText.text = inputText.text;
+    // printText.text = inputText.text;
 
-    this.submitButton = this.add.text(240, 300, 'Submit Name').setInteractive().setOrigin(0.5);
-    this.submitButton.on('pointerdown', () => {
-      if (printText.text.length > 0) {
-        this.user = printText.text;
-        this.submitButton.destroy();
-      }
-    });
+    // this.submitButton = this.add.text(240, 300, 'Submit Name').setInteractive().setOrigin(0.5);
+    // this.submitButton.on('pointerdown', () => {
+    //   if (printText.text.length > 0) {
+    //     this.user = printText.text;
+    //     console.log(this.user);
+    //     this.submitButton.destroy();
+    //   }
+    // });
 
     this.backgrounds = [];
     for (let i = 0; i < 5; i += 1) {

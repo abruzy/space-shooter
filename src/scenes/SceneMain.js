@@ -271,7 +271,7 @@ class SceneMain extends Phaser.Scene {
     return isType;
   }
 
-  scoreAdd(value = 1) {
+  scoreAdd(value = 1){
     window.global.score += value;
     this.scoreText.setText(window.global.score);
     this.tweens.add({
@@ -284,7 +284,7 @@ class SceneMain extends Phaser.Scene {
       onComplete: () => {
         this.scoreText.scaleX = 1;
         this.scoreText.scaleY = this.scoreText.scaleX;
-      },
+      }
     });
   }
 

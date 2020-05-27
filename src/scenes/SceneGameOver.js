@@ -1,15 +1,14 @@
 import Phaser from 'phaser';
 import STYLE from '../styles/style';
-import LocalDatabase from '../component/LocalDatabase';
+import LeaderBoard from '../component/LeaderBoard';
 
 class SceneGameOver extends Phaser.Scene {
   constructor() {
     super('SceneGameOver');
   }
 
-  init(){
-    this.dbLocal = new LocalDatabase();
-    this.isHighscore = this.dbLocal.setHighscore();
+  init() {
+    this.dbLocal = new LeaderBoard();
   }
 
   create() {
@@ -40,29 +39,44 @@ class SceneGameOver extends Phaser.Scene {
 
     // this.add.text(150, 200, 'RANK  SCORE   NAME');
 
-    this.scoreLabel = this.add.text(window.global.width * 0.5, 188, 'SCORE: 99', {
-      fontFamily: 'monospace',
-      fontSize: STYLE.fonts.big,
-      fontStyle: 'bold',
-      color: STYLE.colors.white,
-      align: 'center',
-    });
-    this.scoreLabel.setOrigin(0.5);
-    this.scoreLabel.setText('SCORE: ' + this.getScore());
+    // this.scoreLabel = this.add.text(window.global.width * 0.5, 188, 'SCORE: 99', {
+    //   fontFamily: 'monospace',
+    //   fontSize: STYLE.fonts.big,
+    //   fontStyle: 'bold',
+    //   color: STYLE.colors.white,
+    //   align: 'center',
+    // });
+    // this.scoreLabel.setOrigin(0.5);
+    // this.scoreLabel.setText('SCORE: ' + this.getScore());
 
-    this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, "YOUR HIGHSCORE: 99", {
-      fontFamily: 'monospace',
-      fontSize: STYLE.fonts.normal,
-      fontStyle: 'bold',
-      color: STYLE.colors.white,
-      align: 'center'
+    // this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, "YOUR HIGHSCORE: 99", {
+    //   fontFamily: 'monospace',
+    //   fontSize: STYLE.fonts.normal,
+    //   fontStyle: 'bold',
+    //   color: STYLE.colors.white,
+    //   align: 'center'
+    // });
+    // this.highscoreLabel.setOrigin(0.5);
+    // let highscoreText = "YOUR HIGHSCORE: " + this.dbLocal.getData('localScore');
+    // if (this.isHighscore){
+    //   highscoreText = highscoreText + " (NEW)";
+    // }
+    // this.highscoreLabel.setText(highscoreText);
+
+    this.dbLocal.getLeaderBoard().then(({ result }) => {
+      result.sort((a, b) => b.score - a.score)
+        .filter((game, i) => i < 5)
+        .map((game, i) => {
+          const text = `Player: ${game.user} | Score: ${game.score}`;
+          this.add.text(270, (90 * (i + 1)), text).setOrigin(0.5);
+          return text;
+        });
+
+      // result.forEach(({ user, score }) => {
+      //   const text = `Player: ${user} | Score: ${score}`;
+      //   this.add.text(200, 160, text).setOrigin(0.5, 0.5);
+      // });
     });
-    this.highscoreLabel.setOrigin(0.5);
-    let highscoreText = "YOUR HIGHSCORE: " + this.dbLocal.getData('localScore');
-    if (this.isHighscore){
-      highscoreText = highscoreText + " (NEW)";
-    }
-    this.highscoreLabel.setText(highscoreText);
 
     this.sfx = {
       btnOver: this.sound.add('sndBtnOver'),

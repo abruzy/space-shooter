@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import STYLE from '../styles/style';
 import ScrollingBackground from '../component/ScrollingBackground';
-import LocalDatabase from '../component/LocalDatabase';
 
 class SceneMainMenu extends Phaser.Scene {
   constructor() {
@@ -10,13 +9,13 @@ class SceneMainMenu extends Phaser.Scene {
     });
   }
 
-  init(){
+  init() {
     window.global.width = this.game.config.width;
     window.global.height = this.game.config.height;
     window.emitter = new Phaser.Events.EventEmitter();
-    this.dbLocal = new LocalDatabase();
-  };
-  
+    // this.dbLocal = new LocalDatabase();
+  }
+
   preload() {
     // this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
 
@@ -77,16 +76,16 @@ class SceneMainMenu extends Phaser.Scene {
       `Play Control\nMove: [A (Left), D (Right), W (Up), S (Down)]\nShoot: [Space]\n${window.global.signature}`)
       .setOrigin(0, 1);
 
-    const localScore = this.dbLocal.getData('localScore');
-    if (localScore) {
-      this.add.text(window.global.width / 2, 235, localScore, {
-        fontFamily: 'monospace',
-        fontSize: STYLE.fonts.big,
-        fontStyle: 'bold',
-        color: STYLE.colors.white,
-        align: 'center',
-      }).setOrigin(0.5);
-    }
+    // const localScore = this.dbLocal.getData('localScore');
+    // if (localScore) {
+    //   this.add.text(window.global.width / 2, 235, localScore, {
+    //     fontFamily: 'monospace',
+    //     fontSize: STYLE.fonts.big,
+    //     fontStyle: 'bold',
+    //     color: STYLE.colors.white,
+    //     align: 'center',
+    //   }).setOrigin(0.5);
+    // }
 
     if (window.global.bgmInstance === undefined) {
       this.bgm = this.sound.add('bgm', { loop: true, volume: 0.5 });

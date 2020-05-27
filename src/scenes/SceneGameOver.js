@@ -8,6 +8,7 @@ class SceneGameOver extends Phaser.Scene {
   }
 
   init() {
+    window.global.width = this.game.config.width;
     this.dbLocal = new LeaderBoard();
   }
 
@@ -67,8 +68,8 @@ class SceneGameOver extends Phaser.Scene {
       result.sort((a, b) => b.score - a.score)
         .filter((game, i) => i < 5)
         .map((game, i) => {
-          const text = `Player: ${game.user} | Score: ${game.score}`;
-          this.add.text(270, (90 * (i + 1)), text).setOrigin(0.5);
+          const text = `Player: ${game.user.toUpperCase()} | Score: ${game.score}`;
+          this.add.text(window.global.width * 0.5, (93 * (i + 1)), text).setOrigin(0.5);
           return text;
         });
 

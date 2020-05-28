@@ -1,4 +1,4 @@
-import { saveData, getData } from '../src/component/Leaderboard';
+import LeaderBoard from '../src/component/LeaderBoard';
 
 describe('test', () => {
   it('It Should return "Hello World!"', () => {
@@ -7,16 +7,18 @@ describe('test', () => {
   });
 });
 
-// describe('test api', () => {
-//   test('return success response for the post api', () => {
-//     const user = 'test';
-//     const score = 13;
-//     const result = saveData(user, score);
-//     expect(result).toEqual('undefined');
-//   });
+it('expects API Key to be present', () => {
+  const leaderboard = new LeaderBoard();
+  const { Id } = leaderboard;
+  expect(Id).toBe('e2DIvMqGk9vJA1MU7QhY');
+});
 
-//   test('return success for get api', () => {
-//     const result = getData();
-//     expect(result).toBe('undefined');
-//   });
-// });
+describe('test api', () => {
+  it('get data from the api', () => {
+    const leaderboard = new LeaderBoard();
+    const { getLeaderBoard } = leaderboard;
+    leaderboard.getLeaderBoard().then(data => {
+      expect(data).toBe(10);
+    });
+  });
+});

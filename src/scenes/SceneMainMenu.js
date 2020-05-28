@@ -137,7 +137,8 @@ class SceneMainMenu extends Phaser.Scene {
     this.submitButton = this.add.text(240, 300, 'Submit Name').setInteractive().setOrigin(0.5);
     this.submitButton.on('pointerdown', () => {
       if (printText.text.length > 0) {
-        this.user = printText.text;
+        window.global.userName = printText.text;
+        // this.game.config.curUser.userName = printText.text;
         this.submitButton.destroy();
       }
     });

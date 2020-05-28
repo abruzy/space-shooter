@@ -50,23 +50,20 @@ class SceneGameOver extends Phaser.Scene {
     // this.scoreLabel.setOrigin(0.5);
     // this.scoreLabel.setText('SCORE: ' + this.getScore());
 
-    // this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, "YOUR HIGHSCORE: 99", {
-    //   fontFamily: 'monospace',
-    //   fontSize: STYLE.fonts.normal,
-    //   fontStyle: 'bold',
-    //   color: STYLE.colors.white,
-    //   align: 'center'
-    // });
-    // this.highscoreLabel.setOrigin(0.5);
-    // let highscoreText = "YOUR HIGHSCORE: " + this.dbLocal.getData('localScore');
-    // if (this.isHighscore){
-    //   highscoreText = highscoreText + " (NEW)";
-    // }
-    // this.highscoreLabel.setText(highscoreText);
+    this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, `YOUR CURRENT SCORE: ${window.global.score}`, {
+      fontFamily: 'monospace',
+      fontSize: STYLE.fonts.normal,
+      fontStyle: 'bold',
+      color: STYLE.colors.white,
+      align: 'center',
+    }).setOrigin(0.5);
+
+    this.dbLocal.postToLeaderBoard(window.global.userName, window.global.score);
+    // this.add.text(window.global.width * 0.5, 60, window.global.score);
 
     this.dbLocal.getLeaderBoard().then(({ result }) => {
       result.sort((a, b) => b.score - a.score)
-        .filter((game, i) => i < 5)
+        .slice(0, 5)
         .map((game, i) => {
           const text = `Player: ${game.user.toUpperCase()} | Score: ${game.score}`;
           this.add.text(window.global.width * 0.5, (93 * (i + 1.1)), text).setOrigin(0.5);

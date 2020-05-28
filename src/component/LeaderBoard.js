@@ -5,7 +5,8 @@ class LeaderBoard {
 
   getLeaderBoard() {
     return fetch(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${this.Id}/scores/`)
-      .then(response => response.json());
+      .then(response => response.json())
+      .catch((err) => new Error(err));
   }
 
   postToLeaderBoard(user, score) {
@@ -15,7 +16,7 @@ class LeaderBoard {
         'Content-Type': 'Application/json',
       },
       body: JSON.stringify({ user, score }),
-    }).then(response => response.json());
+    }).then(response => response.json()).catch((err) => new Error(err));
   }
 }
 

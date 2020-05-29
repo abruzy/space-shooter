@@ -7,18 +7,26 @@ describe('test', () => {
   });
 });
 
-it('expects API Key to be present', () => {
+test('expects API Key to be present', () => {
   const leaderboard = new LeaderBoard();
   const { Id } = leaderboard;
   expect(Id).toBe('e2DIvMqGk9vJA1MU7QhY');
 });
 
+const expectedResponse = {
+  result: [
+    {
+      user: 'user1',
+      score: 100,
+    },
+  ],
+};
+
 describe('test api', () => {
-  it('get data from the api', () => {
+  test('get results from API', () => {
+    expect.assertions(1);
     const leaderboard = new LeaderBoard();
-    const { getLeaderBoard } = leaderboard;
-    leaderboard.getLeaderBoard().then(data => {
-      expect(data).toBe(10);
-    });
+    return leaderboard.getLeaderBoard()
+      .then(data => expect(data).toEqual(expectedResponse));
   });
 });

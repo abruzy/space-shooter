@@ -22,34 +22,6 @@ class SceneGameOver extends Phaser.Scene {
     });
     this.title.setOrigin(0.5);
 
-    // this.leaderTitle = this.add.text(window.global.width * 0.5, 130, 'Leader Board', {
-    //   fontFamily: 'monospace',
-    //   fontSize: STYLE.fonts.big,
-    //   fontStyle: 'bold',
-    //   color: STYLE.colors.gold,
-    //   align: 'center',
-    // });
-    // this.leaderTitle.setOrigin(0.5);
-
-    // this.leaderTable = this.add.text(120, 170, 'RANK  SCORE   NAME', {
-    //   fontSize: STYLE.fonts.normal,
-    //   fontStyle: 'bold',
-    //   align: 'center',
-    // });
-    // this.leaderTable.setOrigin(0.5);
-
-    // this.add.text(150, 200, 'RANK  SCORE   NAME');
-
-    // this.scoreLabel = this.add.text(window.global.width * 0.5, 188, 'SCORE: 99', {
-    //   fontFamily: 'monospace',
-    //   fontSize: STYLE.fonts.big,
-    //   fontStyle: 'bold',
-    //   color: STYLE.colors.white,
-    //   align: 'center',
-    // });
-    // this.scoreLabel.setOrigin(0.5);
-    // this.scoreLabel.setText('SCORE: ' + this.getScore());
-
     this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, `${window.global.userName.toUpperCase()} SCORE: ${window.global.score}`, {
       fontFamily: 'monospace',
       fontSize: STYLE.fonts.normal,
@@ -59,7 +31,6 @@ class SceneGameOver extends Phaser.Scene {
     }).setOrigin(0.5);
 
     this.dbLocal.postToLeaderBoard(window.global.userName, window.global.score);
-    // this.add.text(window.global.width * 0.5, 60, window.global.score);
 
     this.dbLocal.getLeaderBoard().then(({ result }) => {
       result.sort((a, b) => b.score - a.score)
@@ -69,11 +40,6 @@ class SceneGameOver extends Phaser.Scene {
           this.add.text(window.global.width * 0.5, (93 * (i + 1.1)), text).setOrigin(0.5);
           return text;
         });
-
-      // result.forEach(({ user, score }) => {
-      //   const text = `Player: ${user} | Score: ${score}`;
-      //   this.add.text(200, 160, text).setOrigin(0.5, 0.5);
-      // });
     });
 
     this.sfx = {
@@ -92,11 +58,6 @@ class SceneGameOver extends Phaser.Scene {
     this.btnRestart.on('pointerup', () => {
       this.btnRestart.setTexture('sprBtnRestartHover');
     });
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  getScore() {
-    return window.global.score;
   }
 
   onClick() {

@@ -106,15 +106,6 @@ class SceneMainMenu extends Phaser.Scene {
     });
     this.title.setOrigin(0.5);
 
-    // this.inputField = this.add.rexInputText(240, 200, 200, 25, {
-    //   type: 'text',
-    //   placeholder: 'Enter your Name',
-    //   fontSize: STYLE.fonts.small,
-    //   color: STYLE.colors.white,
-    //   borderBottom: `3px solid ${STYLE.colors.gold}`,
-    // });
-    // this.inputField.setOrigin(0.5);
-
     const printText = this.add.text(240, 240, '', {
       fontSize: '12px',
       fixedWidth: 100,

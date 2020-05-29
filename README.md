@@ -125,9 +125,23 @@ npm start
 
 ## How to Play the Game
 
-- There are two control for moving which are:
-  * Key A for moving to the left and
+- There are two control for moving the player which are:
+1. using the A, D, W and S key
+  * Key A for moving to the left
   * Key D for moving to the right
+  * Key W for moving to the top
+  * Key S for moving to the bottom
+
+2. using the arrow / cursor key
+
+## To play the Game
+
+You need to enter the name of the player in the input text field and clicked on the ```Submit Name``` button
+
+After which you can now click on the ```Play``` button to start playing the game
+
+## Different Types of Enemies and their Points to be awarded in this Game
+
 - We have three different types of enemies in this game
   * The CarrierShip enemy which has a green color, to destory this type of enemy, you need to three of your laser to hit it before it can be destroy
   * The second type of enemy is the ChaserChip enemy, which chase the player when it closer to the player and you need two laser to hit this type of enemy before it can be destroy

@@ -50,7 +50,7 @@ class SceneGameOver extends Phaser.Scene {
     // this.scoreLabel.setOrigin(0.5);
     // this.scoreLabel.setText('SCORE: ' + this.getScore());
 
-    this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, `YOUR CURRENT SCORE: ${window.global.score}`, {
+    this.highscoreLabel = this.add.text(window.global.width * 0.5, 128, `${window.global.userName.toUpperCase()} SCORE: ${window.global.score}`, {
       fontFamily: 'monospace',
       fontSize: STYLE.fonts.normal,
       fontStyle: 'bold',

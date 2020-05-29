@@ -1,18 +1,5 @@
 import LeaderBoard from '../src/component/LeaderBoard';
 
-describe('test', () => {
-  it('It Should return "Hello World!"', () => {
-    const test = 'Hello World!';
-    expect(test).toBe('Hello World!');
-  });
-});
-
-test('expects API Key to be present', () => {
-  const leaderboard = new LeaderBoard();
-  const { Id } = leaderboard;
-  expect(Id).toBe('e2DIvMqGk9vJA1MU7QhY');
-});
-
 const expectedResponse = {
   result: [
     {
@@ -22,7 +9,17 @@ const expectedResponse = {
   ],
 };
 
+global.fetch = jest.fn(() => Promise.resolve({
+  json: () => Promise.resolve(expectedResponse),
+}));
+
 describe('test api', () => {
+  test('expects API Key to be present', () => {
+    const leaderboard = new LeaderBoard();
+    const { Id } = leaderboard;
+    expect(Id).toBe('e2DIvMqGk9vJA1MU7QhY');
+  });
+
   test('get results from API', () => {
     expect.assertions(1);
     const leaderboard = new LeaderBoard();

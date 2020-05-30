@@ -1,0 +1,43 @@
+{
+  "name": "space-shooter",
+  "version": "1.0.0",
+  "description": "A space shooter game built with Phaser 3",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint --ext .js --ignore-path .gitignore . --fix",
+    "lint:dev": "nodemon --exec \"npm run lint\" .",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abruzy/space-shooter"
+  },
+  "author": "Abubakar Diallo <abubakar.diallo19@gmail.com>",
+  "license": "MIT",
+  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+  "bugs": {
+    "url": "https://github.com/abruzy/space-shooter/issues"
+  },
+  "homepage": "https://github.com/abruzy/space-shooter#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^26.0.1",
+    "raw-loader": "^3.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "phaser": "^3.23.0",
+    "phaser3-rex-plugins": "^1.1.14"
+  }
+}

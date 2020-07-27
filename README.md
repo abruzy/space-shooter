@@ -148,6 +148,16 @@ After which you can now click on the ```Play``` button to start playing the game
   * The last type of enemy only need one laser to hit before it can be destroy
 - For each type of enemy, there are different points for them, like for the enemy type that need three laser to hit it before it can be destroy, you will have 3 point for destroying such enemy
 
+## Others Future Features
+
+> This project is an open source project, there are quite a features you could add to this project as well. A few I can think of are:
+
+- ADD TINT IF DAMAGED
+- ADD LIVES
+- ADD INCREASING DIFFICULTY
+- ADD UPGRADE
+- ADD BOSES
+
 <!-- ROADMAP -->
 ## Roadmap
 

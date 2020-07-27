@@ -60,9 +60,9 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This is the basic start of a Space Shooter Game built with Phaser 3.
+> This is the basic start of a Space Shooter Game built with Phaser 3.The project had a deadline of five days total. Two of those days were allocated to designing, preparing and learning, while the final three days were allocated to building the project.
 
-The project had a deadline of five days total. Two of those days were allocated to designing, preparing and learning, while the final three days were allocated to building the project.
+![Meals Catalogue](./space-shooter.png)
 
 ## Live Demo
 
